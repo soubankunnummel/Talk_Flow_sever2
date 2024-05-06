@@ -35,14 +35,17 @@ export const login = async (req, res) => {
     const {username, password} = req.body
 
     const user = await UserModel.findOne({username})
-    const checkPassword = bcrypt.compare(password, user.password)
-    if (!user || !await checkPassword) {
-        return res.status(401).json({error:"Invalid Credentials"});
+    if (!user) {
+        return res.status(401).json({error: "Invalid User Name"});
     }
+
+    const checkPassword = await bcrypt.compare(password, user.password);
+    if (!checkPassword) {
+        return res.status(401).json({error: "Invalid Password"});
+    }
+
     const userId =  user._id
+    const token =  jwt.sign({userId}, process.env.JWT_SECRET);
 
-
-    const token =  jwt.sign({userId},process.env.JWT_SECRET) 
-   
-    res.status(200).json({user:user, token:token})
-}
+    res.status(200).json({user: user, token: token}) 
+  }
