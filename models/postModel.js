@@ -35,7 +35,7 @@ const postSchema = Schema({
 });
 
 // Method to add a like on the post
-
+ 
 const commentSchema = mongoose.Schema(
   {
     postId: {

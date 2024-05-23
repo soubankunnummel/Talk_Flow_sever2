@@ -1,9 +1,15 @@
 import express from 'express'
 import { tryCatch } from '../middlewares/tryCatch.js'
-import { createPost } from '../controllers/post/postController.js'
+import { checkLike, createPost, getPosts, likeUnlike } from '../controllers/post/postController.js'
 import verifytoken from '../middlewares/verifyToke.js'
+import fileUpload, { upload } from '../middlewares/imageUpload.js'
 const Router = express.Router()
 
-Router.get('/api/post',verifytoken, tryCatch(createPost))
+Router.post('/api/post',verifytoken,upload.single('image'),fileUpload,  tryCatch(createPost))
+.get('/api/post', tryCatch(getPosts))
+.post('/api/like-unlike/:id', verifytoken , tryCatch(likeUnlike))
+.post('/api/like-state/:id', verifytoken , tryCatch(checkLike))
 
-export default Router
+
+
+export default Router 
