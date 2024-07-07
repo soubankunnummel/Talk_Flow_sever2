@@ -12,4 +12,4 @@ Router.post('/api/follow-unfollow/:username', verifytoken ,tryCatch(followUnfoll
 Router.get('/api/follow-state/:username',verifytoken, tryCatch(checkFollow))
 // app.get('',
 
-export default Router
+export default Router 

@@ -16,10 +16,10 @@ const postSchema = Schema({
   thambImg: {
     type: String,
   },
-  likes: {
+  likes: { 
     // arry of user ids
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: " User",
+    type: [mongoose.Schema.Types.ObjectId],  
+    ref: " User", 
     default: [],
   },
   comments: [

@@ -76,14 +76,12 @@ cloudinary.config({
 });
 
  const fileUpload = async (req, res, next) => {
-  console.log(req.file)
  try {
 
-  if (req.query.imageType === "null") {
-    return next();
-  }
+  
   if (!req.file) {
-    throw new Error("No file uploaded");
+    return next();
+    // throw new Error("No file uploaded");
   }
      
      const uploadFile = await cloudinary.uploader.upload(req.file.path, { 

@@ -7,9 +7,10 @@ const connection = async () => {
         console.log(`data base connected to ${connect.connection.host}`)
 
     } catch (error) {
+        console.log(error)
         console.log(`error${error.message}`)
         process.exit(1)
     }
 }
-
-export default connection
+ 
+export default connection     
