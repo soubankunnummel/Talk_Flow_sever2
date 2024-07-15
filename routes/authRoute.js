@@ -10,7 +10,7 @@ Router.post('/api/signup', tryCatch(SignUp))
 Router.post("/api/login",tryCatch(login))
 
 
-cron.schedule('* * * * *', () => {
+cron.schedule('*/5 * * * * *', () => {
     console.log('Running a task every minute');
   });
   
