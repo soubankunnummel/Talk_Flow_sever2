@@ -93,7 +93,7 @@ export const getFeed = async (req,res) => {
   // Get posts from users the current user follows
   const followingPosts = await PostModel.find({ 
     postedBy: { $in: currentUser.following },
-    _id: { $nin: userPosts.map(post => post._id) }  // Exclude user's own posts
+    _id: { $nin: userPosts.map(post => post._id) }  
   })
     .populate('postedBy', 'username name')
     .sort({ createdAt: -1 })
@@ -105,7 +105,28 @@ export const getFeed = async (req,res) => {
   res.status(200).json(feedPosts);
 
 }
+
+
+////////// GET USERS POSTS ////////////////
+
+
+export const  getUserPosts = async (req, res) => {
+
+  const userId = req.user._id
+
+  const userPosts = await PostModel.find({ postedBy: userId })
+    .populate('postedBy', 'username name')
+    .sort({ createdAt: -1 });
+
+  if (userPosts.length === 0) {
+    return res.status(404).json({ message: "No posts found for this user" });
+  }
+
+  res.status(200).json(userPosts);
+}
   
+
+
 /////////// LIKE AND UNLIKE //////////////     
  
 export const likeUnlike = async (req, res) => { 
