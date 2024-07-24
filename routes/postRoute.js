@@ -14,4 +14,4 @@ Router.post('/api/post',verifytoken,upload.single('image'),fileUpload, tryCatch(
 
  
 
-export default Router 
+export default Router   
